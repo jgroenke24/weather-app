@@ -1,5 +1,13 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700');
 
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  padding: 0px;
+}
+
 html {
   font-size: 10px;
   font-family: 'Roboto', sans-serif;
@@ -25,6 +33,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  position: relative;
 }
 .hero {
   font-size: 4rem;
@@ -32,25 +41,50 @@ body {
   margin: 0 0 1rem 0;
   color: #fff;
 }
-form {
+.header {
   display: flex;
+  justify-content: space-between;
+  background: #2980b9;
+  padding: 1rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+.logo {
+  font-size: 3rem;
+  color: #fff;
+}
+.form-main,
+.form-header {
+  display: flex;
+}
+.form-main {
   flex-direction: column;
+  align-items: center;
+}
+.form-header {
+  flex-direction: row;
   align-items: center;
 }
 form input {
   margin-bottom: 1rem;
   border: none;
   border-radius: .5rem;
-  font-size: 2rem;
+  font-size: 1.6rem;
   padding: 1rem;
 }
 .button {
   border: none;
   border-radius: .5rem;
-  font-size: 1.5rem;
-  padding: .75rem 1rem;
+  font-size: 1.6rem;
+  padding: 1rem;
   background: #0c6;
   color: #fff;
   font-weight: 700;
+}
+.form-header input,
+.form-header .button {
+  margin: 0 .5rem;
 }
 
