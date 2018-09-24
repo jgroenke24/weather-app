@@ -25,6 +25,7 @@
   "homepage": "https://github.com/jgroenke24/weather-app#readme",
   "dependencies": {
     "axios": "^0.18.0",
+    "dotenv-webpack": "^1.5.7",
     "query-string": "^6.1.0",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",

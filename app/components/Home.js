@@ -25,7 +25,7 @@ class Home extends React.Component {
     axios.get('https://api.openweathermap.org/data/2.5/weather', {
       params: {
         q: this.state.location,
-        appid: 'f3d0fb9e081c7ae60b687cade62a59d8'
+        appid: process.env.API_KEY
       }
     })
       .then(function(response) {
@@ -50,7 +50,6 @@ class Home extends React.Component {
     //   });
   }
   render() {
-    var match = this.props.match;
     return (
       <div>
         <div className='main'>
