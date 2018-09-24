@@ -1,5 +1,6 @@
 var React = require('react');
-var Header = require('./Header');
+var axios = require('axios');
+var Link = require('react-router-dom').Link;
 
 class Home extends React.Component {
   constructor(props) {
@@ -19,13 +20,39 @@ class Home extends React.Component {
   }
   handleSubmit(event) {
     event.preventDefault();
-    console.log(this.state.location);
+
+    // Get current weather
+    axios.get('https://api.openweathermap.org/data/2.5/weather', {
+      params: {
+        q: this.state.location,
+        appid: 'f3d0fb9e081c7ae60b687cade62a59d8'
+      }
+    })
+      .then(function(response) {
+        console.log(response);
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+      
+    // Get forecast
+    // axios.get('https://api.openweathermap.org/data/2.5/forecast', {
+    //   params: {
+    //     q: this.state.location,
+    //     appid: 'f3d0fb9e081c7ae60b687cade62a59d8'
+    //   }
+    // })
+    //   .then(function(response) {
+    //     console.log(response);
+    //   })
+    //   .catch(function(response) {
+    //     console.log(response);
+    //   });
   }
   render() {
+    var match = this.props.match;
     return (
       <div>
-        <Header />
-      
         <div className='main'>
           <h1 className='hero'>
             Enter a City and a State
@@ -41,12 +68,16 @@ class Home extends React.Component {
               value={this.state.location}
               onChange={this.handleChange}
             />
-            <button
+            
+            <Link
               className='button'
-              type='submit'
+              to={{
+                pathname: '/forecast',
+                search: '?city=' + encodeURIComponent(this.state.location)
+              }}
             >
               Get Weather
-            </button>
+            </Link>
           </form>
         </div>
       </div>
