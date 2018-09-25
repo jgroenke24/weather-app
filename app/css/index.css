@@ -49,6 +49,10 @@ li {
 .logo {
   font-size: 3rem;
   color: #fff;
+  letter-spacing: .5rem;
+}
+.logo span {
+  font-weight: 300;
 }
 .home {
   background: #2980B9;
@@ -108,7 +112,7 @@ form input {
 .city {
   font-size: 4rem;
   font-weight: 300;
-  color: #6dd5fa;
+  color: #2980b9;
   text-align: center;
   text-transform: capitalize;
 }
@@ -125,18 +129,43 @@ form input {
   padding: 2rem;
   margin-right: 1rem;
   font-size: 2rem;
-  color: #fff;
-  background: #6dd5fa;
+  color: #6dd5fa;
+  /*background: #6dd5fa;*/
   border-radius: 50%;
-  width: 20rem;
+  /*width: 20rem;*/
 }
 .forecast-day:last-of-type {
   margin-right: 0;
 }
-.forecast-icon {
-  width: 10rem;
+.forecast-item:first-of-type {
+  margin-bottom: 2rem;
 }
-.temp {
-  margin: 0;
-  font-weight: 300;
+.forecast-item .wi {
+  font-size: 10rem;
+}
+.temp .wi {
+  font-size: 100%;
+}
+.loading {
+  flex: 1 1 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 10rem;
+  color: #2980b9;
+}
+.back {
+  font-size: 2rem;
+  color: #6dd5fa;
+  text-align: center;
+  margin-top: 4rem;
+}
+
+
+
+
+@media (max-width: 768px) {
+  .form-header {
+    display: none;
+  }
 }

@@ -3,9 +3,9 @@ var axios = require('axios');
 var queryString = require('query-string');
 var moment = require('moment');
 var PropTypes = require('prop-types');
+var Link = require('react-router-dom').Link;
 
 function ForecastGrid(props) {
-  
   return (
     <div className='forecast'>
       <h1 className='city'>
@@ -14,27 +14,40 @@ function ForecastGrid(props) {
       <ul className='forecast-list'>
         {props.forecasts.list.filter(function(day) {
           return day.dt_txt.includes('12:00:00');
-        }).map(function(day, index) {
+        }).map(function(day) {
           return (
-            <ul key={index} className='forecast-day'>
-              <li className='forecast-item'>
-                {moment(day.dt_txt).format('dddd')}
-              </li>
-              <li className='forecast-item'>
-                <i className={'wi wi-owm-' + day.weather[0].id}></i>
-              </li>
-              <li className='forecast-item'>
-                <p className='temp'>
-                  {Math.round(day.main.temp)}
-                  <i className='wi wi-degrees'></i>
-                </p>
-              </li>
-            </ul>
+            <Link
+              to={{
+                pathname: '/detail/' + props.city,
+                search: '?_k=' + day.dt,
+                state: {
+                  weather: day,
+                  city: props.city
+                }
+              }}
+            >
+              <ul key={day.dt.toString()} className='forecast-day'>
+                <li className='forecast-item'>
+                  {moment(day.dt_txt).format('dddd, MMM Do')}
+                </li>
+                <li className='forecast-item'>
+                  <i className={'wi wi-owm-' + day.weather[0].id}></i>
+                </li>
+              </ul>
+            </Link>
           );
         })
          
         }
       </ul>
+      <Link
+        className='back'
+        to={{
+          pathname: '/'
+        }}
+      >
+        Go to Homepage
+      </Link>
     </div>
   );
 }
@@ -59,26 +72,6 @@ class Forecast extends React.Component {
     // Get city from query
     var city = queryString.parse(this.props.location.search).city;
     
-    // Get current weather
-    // axios.get('https://api.openweathermap.org/data/2.5/weather', {
-    //   params: {
-    //     q: city,
-    //     appid: process.env.API_KEY
-    //   }
-    // })
-    //   .then((response) => {
-    //     console.log(response.data);
-    //     this.setState(function() {
-    //       return {
-    //         data: response.data,
-    //         isLoading: false
-    //       };
-    //     });
-    //   })
-    //   .catch(function(error) {
-    //     console.log(error);
-    //   });
-      
     // Get forecast
     axios.get('https://api.openweathermap.org/data/2.5/forecast', {
       params: {
@@ -106,7 +99,7 @@ class Forecast extends React.Component {
     
     if (isLoading) {
       return (
-        <div>
+        <div className='loading'>
           Loading
         </div>
       );
