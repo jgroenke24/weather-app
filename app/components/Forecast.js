@@ -6,8 +6,8 @@ var moment = require('moment');
 function ForecastGrid(props) {
   
   return (
-    <div className='main'>
-      <h1 className='hero'>
+    <div className='forecast'>
+      <h1 className='city'>
         {props.forecasts.city.name}
       </h1>
       <ul className='forecast-list'>
@@ -15,7 +15,7 @@ function ForecastGrid(props) {
           return day.dt_txt.includes('12:00:00');
         }).map(function(day, index) {
           return (
-            <ul key={index} className='forecast'>
+            <ul key={index} className='forecast-day'>
               <li className='forecast-item'>
                 {moment(day.dt_txt).format('dddd')}
               </li>

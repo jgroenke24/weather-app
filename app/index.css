@@ -10,9 +10,6 @@ body {
 html {
   font-size: 10px;
   font-family: 'Roboto', sans-serif;
-  background: #2980B9;
-  background: -webkit-linear-gradient(to right, #FFFFFF, #6DD5FA, #2980B9);
-  background: linear-gradient(to right, #FFFFFF, #6DD5FA, #2980B9);
 }
 body {
   margin: 0;
@@ -34,14 +31,34 @@ li {
   box-sizing: border-box;
 }
 
+#app,
 .container {
-  height: 100vh;
-  width: 100vw;
+  height: 100%;
+  width: 100%;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  background: #2980b9;
+  padding: 1rem;
+}
+.logo {
+  font-size: 3rem;
+  color: #fff;
+}
+.home {
+  background: #2980B9;
+  background: -webkit-linear-gradient(to right, #FFFFFF, #6DD5FA, #2980B9);
+  background: linear-gradient(to right, #FFFFFF, #6DD5FA, #2980B9);
+  flex: 1 1 auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  position: relative;
 }
 .hero {
   font-size: 4rem;
@@ -49,20 +66,6 @@ li {
   margin: 0 0 1rem 0;
   color: #fff;
   text-align: center;
-}
-.header {
-  display: flex;
-  justify-content: space-between;
-  background: #2980b9;
-  padding: 1rem;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-}
-.logo {
-  font-size: 3rem;
-  color: #fff;
 }
 .form-main,
 .form-header {
@@ -96,13 +99,25 @@ form input {
 .form-header .button {
   margin: 0 .5rem;
 }
+.forecast {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  
+}
+.city {
+  font-size: 4rem;
+  font-weight: 300;
+  color: #6dd5fa;
+  text-align: center;
+}
 .forecast-list {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-  margin-top: 5rem;
+  margin-top: 3rem;
 }
-.forecast {
+.forecast-day {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -114,11 +129,13 @@ form input {
   border-radius: 50%;
   width: 20rem;
 }
+.forecast-day:last-of-type {
+  margin-right: 0;
+}
 .forecast-icon {
   width: 10rem;
 }
 .temp {
   margin: 0;
   font-weight: 300;
-  
 }

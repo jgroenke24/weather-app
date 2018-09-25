@@ -51,34 +51,32 @@ class Home extends React.Component {
   }
   render() {
     return (
-      <div>
-        <div className='main'>
-          <h1 className='hero'>
-            Enter a City and a State
-          </h1>
-          <form 
-            className='form-main'
-            onSubmit={this.handleSubmit}
+      <div className='home'>
+        <h1 className='hero'>
+          Enter a City and a State
+        </h1>
+        <form 
+          className='form-main'
+          onSubmit={this.handleSubmit}
+        >
+          <input
+            type='text'
+            placeholder='St. George, Utah'
+            autoComplete='off'
+            value={this.state.location}
+            onChange={this.handleChange}
+          />
+          
+          <Link
+            className='button'
+            to={{
+              pathname: '/forecast',
+              search: '?city=' + encodeURIComponent(this.state.location)
+            }}
           >
-            <input
-              type='text'
-              placeholder='St. George, Utah'
-              autoComplete='off'
-              value={this.state.location}
-              onChange={this.handleChange}
-            />
-            
-            <Link
-              className='button'
-              to={{
-                pathname: '/forecast',
-                search: '?city=' + encodeURIComponent(this.state.location)
-              }}
-            >
-              Get Weather
-            </Link>
-          </form>
-        </div>
+            Get Weather
+          </Link>
+        </form>
       </div>
     );
   }
