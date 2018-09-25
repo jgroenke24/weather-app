@@ -2,13 +2,14 @@ var React = require('react');
 var axios = require('axios');
 var queryString = require('query-string');
 var moment = require('moment');
+var PropTypes = require('prop-types');
 
 function ForecastGrid(props) {
   
   return (
     <div className='forecast'>
       <h1 className='city'>
-        {props.forecasts.city.name}
+        {props.city}
       </h1>
       <ul className='forecast-list'>
         {props.forecasts.list.filter(function(day) {
@@ -20,15 +21,12 @@ function ForecastGrid(props) {
                 {moment(day.dt_txt).format('dddd')}
               </li>
               <li className='forecast-item'>
-                <img 
-                  className='forecast-icon'
-                  src={'https://openweathermap.org/img/w/' + day.weather[0].icon + '.png'}
-                  alt={day.weather[0].description}
-                />
+                <i className={'wi wi-owm-' + day.weather[0].id}></i>
               </li>
               <li className='forecast-item'>
                 <p className='temp'>
                   {Math.round(day.main.temp)}
+                  <i className='wi wi-degrees'></i>
                 </p>
               </li>
             </ul>
@@ -40,6 +38,12 @@ function ForecastGrid(props) {
     </div>
   );
 }
+
+// Add proptypes
+ForecastGrid.propTypes = {
+  city: PropTypes.string.isRequired,
+  forecasts: PropTypes.object.isRequired
+};
 
 class Forecast extends React.Component {
   constructor(props) {
@@ -98,6 +102,7 @@ class Forecast extends React.Component {
   }
   render() {
     var isLoading = this.state.isLoading;
+    var city = queryString.parse(this.props.location.search).city;
     
     if (isLoading) {
       return (
@@ -108,7 +113,7 @@ class Forecast extends React.Component {
     }
     
     return (
-      <ForecastGrid forecasts={this.state.data} />
+      <ForecastGrid forecasts={this.state.data} city={city} />
     );
   }
 }

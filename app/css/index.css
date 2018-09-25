@@ -110,6 +110,7 @@ form input {
   font-weight: 300;
   color: #6dd5fa;
   text-align: center;
+  text-transform: capitalize;
 }
 .forecast-list {
   display: flex;
