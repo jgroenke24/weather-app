@@ -7,7 +7,7 @@ class Day extends React.Component {
     var day = this.props.location.state.weather;
     var city = this.props.location.state.city;
     return (
-      <div className='forecast'>
+      <div className='forecast detail'>
         <h1 className='city'>
           {city}
         </h1>

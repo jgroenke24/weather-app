@@ -17,6 +17,7 @@ function ForecastGrid(props) {
         }).map(function(day) {
           return (
             <Link
+              className='forecast-link'
               to={{
                 pathname: '/detail/' + props.city,
                 search: '?_k=' + day.dt,
