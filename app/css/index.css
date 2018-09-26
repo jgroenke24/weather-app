@@ -24,6 +24,9 @@ a {
 li {
   list-style: none;
 }
+p {
+  margin: 1rem 0;
+}
 
 *,
 *:before,
@@ -140,6 +143,9 @@ form input {
 }
 .forecast-item .wi {
   font-size: 10rem;
+}
+.forecast-item .back {
+  margin-top: 2rem;
 }
 .temp .wi {
   font-size: 100%;
