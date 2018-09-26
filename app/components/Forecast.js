@@ -65,6 +65,7 @@ class Forecast extends React.Component {
     
     this.state = {
       isLoading: true,
+      error: null,
       data: null
     };
   }
@@ -90,18 +91,40 @@ class Forecast extends React.Component {
         };
       });
     })
-    .catch(function(response) {
-      console.log(response);
+    .catch((error) => {
+      this.setState(function() {
+        return {
+          error: 'There was an error completing your request.  Try the entire state name instead of the abbreviation. :)',
+          isLoading: false
+        };
+      });
     });
   }
   render() {
     var isLoading = this.state.isLoading;
+    var error = this.state.error;
     var city = queryString.parse(this.props.location.search).city;
     
     if (isLoading) {
       return (
         <div className='loading'>
           Loading
+        </div>
+      );
+    }
+    
+    if (error) {
+      return (
+        <div className='error'>
+          {error}
+          <Link
+            className='back'
+            to={{
+              pathname: '/'
+            }}
+          >
+            Go to Homepage
+          </Link>
         </div>
       );
     }

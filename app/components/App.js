@@ -19,7 +19,7 @@ class App extends React.Component {
             <Route path='/forecast' component={Forecast}/>
             <Route path='/detail/:day' component={Day}/>
             <Route render={function() {
-              return <p>Not Found</p>;
+              return <div className='error'>Page not found</div>;
             }} />
           </Switch>
         </Router>
