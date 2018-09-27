@@ -58,7 +58,6 @@ function ForecastGrid(props) {
             </Link>
           );
         })
-         
         }
       </ul>
       <Link
