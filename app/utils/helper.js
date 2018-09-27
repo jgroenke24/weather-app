@@ -1,3 +1,5 @@
+var moment = require('moment');
+
 function formatAPIData(data) {
 
 var checkDayString = '';
@@ -9,6 +11,11 @@ var accIndex = -1;
 */
 var newArray = data.reduce((acc, curr) => {
   var dayString = curr.dt_txt.slice(0,10);
+  
+  // If the day's forecast date is today's date, skip it
+  if (dayString === moment().format('YYYY-MM-DD')) {
+    return acc;
+  }
 
   // If an object for that day exist, update the existing data
   if (checkDayString === dayString) {
