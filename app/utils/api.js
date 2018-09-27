@@ -9,13 +9,11 @@ function getCurrentWeather(city) {
     }
   })
   .then(function(response) {
-    console.log('inside getCurrentWeather', response.data);
     return response.data;
   });
 }
 
 function getForecast(city) {
-  // Get forecast
   return axios.get('https://api.openweathermap.org/data/2.5/forecast', {
     params: {
       q: city,
@@ -24,7 +22,6 @@ function getForecast(city) {
     }
   })
   .then(function(response) {
-    console.log('inside getForecast', response.data);
     return response.data;
   });
 }
@@ -40,7 +37,6 @@ module.exports = {
       getCurrentWeather(city),
       getForecast(city)
     ]).then(function(data) {
-      console.log('inside getAPI data', data);
       return data;
     }).catch(handleError);
   }

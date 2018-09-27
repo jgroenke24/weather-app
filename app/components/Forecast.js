@@ -98,7 +98,6 @@ class Forecast extends React.Component {
     
     api.getAPIData(city)
       .then(function(results) {
-        console.log('in app', results);
         if (results === null) {
           return this.setState(function() {
             return {
