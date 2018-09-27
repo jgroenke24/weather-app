@@ -117,6 +117,29 @@ form input {
   text-align: center;
   text-transform: capitalize;
 }
+.currently {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  color: #6dd5fa;
+}
+.currently > * {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+.currently-temp {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.currently-temp-num {
+  font-size: 3rem;
+}
+.currently-icon .wi {
+  font-size: 10rem;
+}
 .forecast-list {
   display: flex;
   flex-wrap: wrap;
@@ -129,7 +152,7 @@ form input {
   align-items: center;
   padding: 2rem;
   margin-right: 1rem;
-  font-size: 2rem;
+  font-size: 1.75rem;
   color: #6dd5fa;
   /*background: #6dd5fa;*/
   border-radius: 50%;

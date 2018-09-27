@@ -13,19 +13,22 @@ class Day extends React.Component {
         </h1>
         <ul className='forecast-day'>
           <li className='forecast-item'>
-            {moment(day.dt_txt).format('dddd, MMM Do')}
+            {moment(day.day).format('dddd, MMM Do')}
           </li>
           <li className='forecast-item'>
-            <i className={'wi wi-owm-' + day.weather[0].id}></i>
+            <i className={'wi wi-owm-' + day.id}></i>
           </li>
           <li className='forecast-item'>
-            <p>{day.weather[0].description}</p>
+            <p>{day.desc}</p>
           </li>
           <li className='forecast-item'>
-            <p className='temp'>Temp: {Math.round(day.main.temp)}<i className='wi wi-degrees'></i></p>
+            <p className='temp'>High: {Math.round(day.tempHi)}<i className='wi wi-degrees'></i></p>
           </li>
           <li className='forecast-item'>
-            <p>Humidity: {day.main.humidity}</p>
+            <p className='temp'>Low: {Math.round(day.tempLo)}<i className='wi wi-degrees'></i></p>
+          </li>
+          <li className='forecast-item'>
+            <p>Humidity: {Math.round((day.humHi + day.humLo) / 2)}</p>
           </li>
           <li className='forecast-item'>
             <Link

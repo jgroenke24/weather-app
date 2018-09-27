@@ -4,6 +4,26 @@ var queryString = require('query-string');
 var moment = require('moment');
 var PropTypes = require('prop-types');
 var Link = require('react-router-dom').Link;
+var helper = require('../utils/helper');
+var api = require('../utils/api');
+
+function CurrentWeather(props) {
+  return (
+    <div className='currently'>
+      <div className='currently-temp'>
+        <p>Right Now:</p>
+        <p className='currently-temp-num'>{Math.round(props.current.main.temp)}<i className='wi wi-degrees'></i></p>
+      </div>
+      <div className='currently-icon'>
+        <i className={'wi wi-owm-' + props.current.weather[0].id}></i>
+      </div>
+    </div>
+  );
+}
+
+CurrentWeather.propTypes = {
+  current: PropTypes.object.isRequired
+};
 
 function ForecastGrid(props) {
   return (
@@ -11,28 +31,28 @@ function ForecastGrid(props) {
       <h1 className='city'>
         {props.city}
       </h1>
+      <CurrentWeather current={props.current} />
       <ul className='forecast-list'>
-        {props.forecasts.list.filter(function(day) {
-          return day.dt_txt.includes('12:00:00');
-        }).map(function(day) {
+        {props.forecasts.map(function(day) {
           return (
             <Link
+              key={day.day}
               className='forecast-link'
               to={{
                 pathname: '/detail/' + props.city,
-                search: '?_k=' + day.dt,
+                search: '?_k=' + day.day,
                 state: {
                   weather: day,
                   city: props.city
                 }
               }}
             >
-              <ul key={day.dt.toString()} className='forecast-day'>
+              <ul className='forecast-day'>
                 <li className='forecast-item'>
-                  {moment(day.dt_txt).format('dddd, MMM Do')}
+                  {moment(day.day).format('dddd, MMM Do')}
                 </li>
                 <li className='forecast-item'>
-                  <i className={'wi wi-owm-' + day.weather[0].id}></i>
+                  <i className={'wi wi-owm-' + day.id}></i>
                 </li>
               </ul>
             </Link>
@@ -56,7 +76,8 @@ function ForecastGrid(props) {
 // Add proptypes
 ForecastGrid.propTypes = {
   city: PropTypes.string.isRequired,
-  forecasts: PropTypes.object.isRequired
+  forecasts: PropTypes.array.isRequired,
+  current: PropTypes.object.isRequired
 };
 
 class Forecast extends React.Component {
@@ -66,6 +87,7 @@ class Forecast extends React.Component {
     this.state = {
       isLoading: true,
       error: null,
+      currentWeather: null,
       data: null
     };
   }
@@ -74,31 +96,27 @@ class Forecast extends React.Component {
     // Get city from query
     var city = queryString.parse(this.props.location.search).city;
     
-    // Get forecast
-    axios.get('https://api.openweathermap.org/data/2.5/forecast', {
-      params: {
-        q: city,
-        units: 'imperial',
-        appid: process.env.API_KEY
-      }
-    })
-    .then((response) => {
-      console.log(response.data);
-      this.setState(function() {
-        return {
-          data: response.data,
-          isLoading: false
-        };
-      });
-    })
-    .catch((error) => {
-      this.setState(function() {
-        return {
-          error: 'There was an error completing your request.  Try the entire state name instead of the abbreviation. :)',
-          isLoading: false
-        };
-      });
-    });
+    api.getAPIData(city)
+      .then(function(results) {
+        console.log('in app', results);
+        if (results === null) {
+          return this.setState(function() {
+            return {
+              error: 'There was an error completing your request.  Try the entire state name instead of the abbreviation. :)',
+              isLoading: false
+            };
+          });
+        }
+        
+        var forecasts = helper.formatData(results[1].list);
+        this.setState(function() {
+          return {
+            data: forecasts,
+            currentWeather: results[0],
+            isLoading: false
+          };
+        });
+      }.bind(this));
   }
   render() {
     var isLoading = this.state.isLoading;
@@ -130,7 +148,7 @@ class Forecast extends React.Component {
     }
     
     return (
-      <ForecastGrid forecasts={this.state.data} city={city} />
+      <ForecastGrid forecasts={this.state.data} current={this.state.currentWeather} city={city} />
     );
   }
 }
