@@ -1,8 +1,8 @@
-var React = require('react');
-var ReactDOM = require('react-dom');
+const React = require('react');
+const ReactDOM = require('react-dom');
 require('./css/index.css');
 require('./css/weather-icons.min.css');
-var App = require('./components/App');
+const App = require('./components/App');
 
 
 ReactDOM.render(

@@ -1,6 +1,5 @@
-var React = require('react');
-var axios = require('axios');
-var Link = require('react-router-dom').Link;
+const React = require('react');
+const Link = require('react-router-dom').Link;
 
 class Home extends React.Component {
   constructor(props) {
@@ -13,11 +12,12 @@ class Home extends React.Component {
     this.handleChange = this.handleChange.bind(this);
   }
   handleChange(event) {
-    this.setState({
-      location: event.target.value
-    });
+    const value = event.target.value;
+    this.setState(() => ({ location: value }));
   }
   render() {
+    const { location } = this.state;
+    
     return (
       <div className='home'>
         <h1 className='hero'>
@@ -31,7 +31,7 @@ class Home extends React.Component {
             type='text'
             placeholder='St. George, Utah'
             autoComplete='off'
-            value={this.state.location}
+            value={location}
             onChange={this.handleChange}
           />
           
@@ -39,7 +39,7 @@ class Home extends React.Component {
             className='button'
             to={{
               pathname: '/forecast',
-              search: '?city=' + encodeURIComponent(this.state.location)
+              search: '?city=' + encodeURIComponent(location)
             }}
           >
             Get Weather

@@ -1,21 +1,21 @@
-var React = require('react');
-var axios = require('axios');
-var queryString = require('query-string');
-var moment = require('moment');
-var PropTypes = require('prop-types');
-var Link = require('react-router-dom').Link;
-var helper = require('../utils/helper');
-var api = require('../utils/api');
+const React = require('react');
+const queryString = require('query-string');
+const moment = require('moment');
+const PropTypes = require('prop-types');
+const Link = require('react-router-dom').Link;
+const helper = require('../utils/helper');
+const api = require('../utils/api');
 
 function CurrentWeather(props) {
+  const { current } = props;
   return (
     <div className='currently'>
       <div className='currently-temp'>
         <p>Right Now:</p>
-        <p className='currently-temp-num'>{Math.round(props.current.main.temp)}<i className='wi wi-degrees'></i></p>
+        <p className='currently-temp-num'>{Math.round(current.main.temp)}<i className='wi wi-degrees'></i></p>
       </div>
       <div className='currently-icon'>
-        <i className={'wi wi-owm-' + props.current.weather[0].id}></i>
+        <i className={'wi wi-owm-' + current.weather[0].id}></i>
       </div>
     </div>
   );
@@ -26,24 +26,25 @@ CurrentWeather.propTypes = {
 };
 
 function ForecastGrid(props) {
+  const { city, current, forecasts } = props;
   return (
     <div className='forecast'>
       <h1 className='city'>
-        {props.city}
+        {city}
       </h1>
-      <CurrentWeather current={props.current} />
+      <CurrentWeather current={current} />
       <ul className='forecast-list'>
-        {props.forecasts.map(function(day) {
+        {forecasts.map(function(day) {
           return (
             <Link
               key={day.day}
               className='forecast-link'
               to={{
-                pathname: '/detail/' + props.city,
+                pathname: '/detail/' + city,
                 search: '?_k=' + day.day,
                 state: {
                   weather: day,
-                  city: props.city
+                  city: city
                 }
               }}
             >
@@ -93,33 +94,28 @@ class Forecast extends React.Component {
   componentDidMount() {
 
     // Get city from query
-    var city = queryString.parse(this.props.location.search).city;
+    const { city } = queryString.parse(this.props.location.search);
     
     api.getAPIData(city)
-      .then(function(results) {
+      .then((results) => {
         if (results === null) {
-          return this.setState(function() {
-            return {
-              error: 'There was an error completing your request.  Try the entire state name instead of the abbreviation. :)',
-              isLoading: false
-            };
-          });
+          return this.setState(() => ({
+            error: 'There was an error completing your request.  Try the entire state name instead of the abbreviation. :)',
+            isLoading: false
+          }));
         }
         
-        var forecasts = helper.formatData(results[1].list);
-        this.setState(function() {
-          return {
-            data: forecasts,
-            currentWeather: results[0],
-            isLoading: false
-          };
-        });
-      }.bind(this));
+        const forecasts = helper.formatData(results[1].list);
+        this.setState(() => ({
+          data: forecasts,
+          currentWeather: results[0],
+          isLoading: false
+        }));
+      });
   }
   render() {
-    var isLoading = this.state.isLoading;
-    var error = this.state.error;
-    var city = queryString.parse(this.props.location.search).city;
+    const { isLoading, error, data, currentWeather } = this.state;
+    const { city } = queryString.parse(this.props.location.search);
     
     if (isLoading) {
       return (
@@ -146,7 +142,7 @@ class Forecast extends React.Component {
     }
     
     return (
-      <ForecastGrid forecasts={this.state.data} current={this.state.currentWeather} city={city} />
+      <ForecastGrid forecasts={data} current={currentWeather} city={city} />
     );
   }
 }
