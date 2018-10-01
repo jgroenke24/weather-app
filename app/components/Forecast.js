@@ -86,27 +86,26 @@ class Forecast extends React.Component {
     currentWeather: null,
     data: null
   }
-  componentDidMount() {
+  async componentDidMount() {
 
     // Get city from query
     const { city } = queryString.parse(this.props.location.search);
     
-    getAPIData(city)
-      .then((results) => {
-        if (results === null) {
-          return this.setState(() => ({
-            error: 'There was an error completing your request.  Try the entire state name instead of the abbreviation. :)',
-            isLoading: false
-          }));
-        }
-        
-        const forecasts = formatAPIData(results[1].list);
-        this.setState(() => ({
-          data: forecasts,
-          currentWeather: results[0],
-          isLoading: false
-        }));
-      });
+    const results = await getAPIData(city);
+    
+    if (results === null) {
+      return this.setState(() => ({
+        error: 'There was an error completing your request.  Try the entire state name instead of the abbreviation. :)',
+        isLoading: false
+      }));
+    }
+    
+    const forecasts = formatAPIData(results[1].list);
+    this.setState(() => ({
+      data: forecasts,
+      currentWeather: results[0],
+      isLoading: false
+    }));
   }
   render() {
     const { isLoading, error, data, currentWeather } = this.state;
