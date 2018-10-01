@@ -4,3 +4,6 @@ dist
 data.txt
 getData.js
 test.js
+firebase.json
+.firebase/
+.firebaserc

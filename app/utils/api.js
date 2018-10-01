@@ -1,4 +1,4 @@
-var axios = require('axios');
+const axios = require('axios');
 
 function getCurrentWeather(city) {
   return axios.get('https://api.openweathermap.org/data/2.5/weather', {
@@ -8,9 +8,7 @@ function getCurrentWeather(city) {
       appid: process.env.API_KEY
     }
   })
-  .then(function(response) {
-    return response.data;
-  });
+  .then(({ data }) => data);
 }
 
 function getForecast(city) {
@@ -21,9 +19,7 @@ function getForecast(city) {
       appid: process.env.API_KEY
     }
   })
-  .then(function(response) {
-    return response.data;
-  });
+  .then(({ data }) => data);
 }
 
 function handleError (error) {
@@ -32,12 +28,11 @@ function handleError (error) {
 }
 
 module.exports = {
-  getAPIData: function(city) {
-    return axios.all([
+  getAPIData(city) {
+    return Promise.all([
       getCurrentWeather(city),
       getForecast(city)
-    ]).then(function(data) {
-      return data;
-    }).catch(handleError);
+    ]).then((data) => data)
+    .catch(handleError);
   }
 };

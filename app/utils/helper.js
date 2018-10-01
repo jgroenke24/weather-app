@@ -1,16 +1,16 @@
-var moment = require('moment');
+const moment = require('moment');
 
 function formatAPIData(data) {
 
-var checkDayString = '';
-var accIndex = -1;
+let checkDayString = '';
+let accIndex = -1;
 /* 
   Forecast array returned from openweathermap API shows the weather for the next 5 days for every
   3 hours.
   The following trims down that array to each day's high/low temperatures and humidity and other info.
 */
-var newArray = data.reduce((acc, curr) => {
-  var dayString = curr.dt_txt.slice(0,10);
+let newArray = data.reduce((acc, curr) => {
+  let dayString = curr.dt_txt.slice(0,10);
   
   // If the day's forecast date is today's date, skip it
   if (dayString === moment().format('YYYY-MM-DD')) {
@@ -19,8 +19,8 @@ var newArray = data.reduce((acc, curr) => {
 
   // If an object for that day exist, update the existing data
   if (checkDayString === dayString) {
-    var temp = curr.main.temp;
-    var hum = curr.main.humidity;
+    let temp = curr.main.temp;
+    let hum = curr.main.humidity;
     
     // Update high temperature
     if (temp > acc[accIndex].tempHi) {
@@ -46,7 +46,7 @@ var newArray = data.reduce((acc, curr) => {
   }
   
   // Object for day does not exist yet so create it within array
-  var dayObj = {};
+  let dayObj = {};
   dayObj.day = dayString;
   dayObj.tempHi = curr.main.temp;
   dayObj.tempLo = curr.main.temp;
