@@ -1,10 +1,10 @@
-const React = require('react');
-const queryString = require('query-string');
-const moment = require('moment');
-const PropTypes = require('prop-types');
-const Link = require('react-router-dom').Link;
-const helper = require('../utils/helper');
-const api = require('../utils/api');
+import React from 'react';
+import queryString from 'query-string';
+import moment from 'moment';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+import { formatAPIData } from '../utils/helper';
+import { getAPIData } from '../utils/api';
 
 function CurrentWeather(props) {
   const { current } = props;
@@ -96,7 +96,7 @@ class Forecast extends React.Component {
     // Get city from query
     const { city } = queryString.parse(this.props.location.search);
     
-    api.getAPIData(city)
+    getAPIData(city)
       .then((results) => {
         if (results === null) {
           return this.setState(() => ({
@@ -105,7 +105,7 @@ class Forecast extends React.Component {
           }));
         }
         
-        const forecasts = helper.formatData(results[1].list);
+        const forecasts = formatAPIData(results[1].list);
         this.setState(() => ({
           data: forecasts,
           currentWeather: results[0],
@@ -147,4 +147,4 @@ class Forecast extends React.Component {
   }
 }
 
-module.exports = Forecast;
+export default Forecast;

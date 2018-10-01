@@ -1,4 +1,4 @@
-const axios = require('axios');
+import axios from 'axios';
 
 function getCurrentWeather(city) {
   return axios.get('https://api.openweathermap.org/data/2.5/weather', {
@@ -27,12 +27,10 @@ function handleError (error) {
   return null;
 }
 
-module.exports = {
-  getAPIData(city) {
-    return Promise.all([
-      getCurrentWeather(city),
-      getForecast(city)
-    ]).then((data) => data)
-    .catch(handleError);
-  }
-};
+export function getAPIData(city) {
+  return Promise.all([
+    getCurrentWeather(city),
+    getForecast(city)
+  ]).then((data) => data)
+  .catch(handleError);
+}

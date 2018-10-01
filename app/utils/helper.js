@@ -1,6 +1,6 @@
-const moment = require('moment');
+import moment from 'moment';
 
-function formatAPIData(data) {
+export function formatAPIData(data) {
 
 let checkDayString = '';
 let accIndex = -1;
@@ -64,7 +64,3 @@ let newArray = data.reduce((acc, curr) => {
 
 return newArray;
 }
-
-module.exports = {
-  formatData: formatAPIData
-};

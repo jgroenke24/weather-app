@@ -1,6 +1,6 @@
-const React = require('react');
-const moment = require('moment');
-const Link = require('react-router-dom').Link;
+import React from 'react';
+import moment from 'moment';
+import { Link } from 'react-router-dom';
 
 function Day(props) {
   const day = props.location.state.weather;
@@ -44,4 +44,4 @@ function Day(props) {
   );
 }
 
-module.exports = Day;
+export default Day;

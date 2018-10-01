@@ -1,8 +1,8 @@
-const React = require('react');
-const ReactDOM = require('react-dom');
-require('./css/index.css');
-require('./css/weather-icons.min.css');
-const App = require('./components/App');
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './css/index.css';
+import './css/weather-icons.min.css';
+import App from './components/App';
 
 
 ReactDOM.render(

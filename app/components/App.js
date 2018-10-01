@@ -1,12 +1,9 @@
-const React = require('react');
-const ReactRouter = require('react-router-dom');
-const Router = ReactRouter.BrowserRouter;
-const Route = ReactRouter.Route;
-const Switch = ReactRouter.Switch;
-const Header = require('./Header');
-const Home = require('./Home');
-const Forecast = require('./Forecast');
-const Day = require('./Day');
+import React from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import Header from './Header';
+import Home from './Home';
+import Forecast from './Forecast';
+import Day from './Day';
 
 class App extends React.Component {
   render() {
@@ -28,4 +25,4 @@ class App extends React.Component {
   }
 }
 
-module.exports = App;
+export default App;

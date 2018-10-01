@@ -1,6 +1,6 @@
-const React = require('react');
+import React from 'react';
 
-function Header(props) {
+export default function Header(props) {
   return (
     <div className='header'>
       <div className='logo'>
@@ -9,5 +9,3 @@ function Header(props) {
     </div>
   );
 }
-
-module.exports = Header;
