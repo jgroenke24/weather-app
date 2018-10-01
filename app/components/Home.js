@@ -2,16 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 class Home extends React.Component {
-  constructor(props) {
-    super(props);
-    
-    this.state = {
-      location: ''
-    };
-    
-    this.handleChange = this.handleChange.bind(this);
+  state = {
+    location: ''
   }
-  handleChange(event) {
+  handleChange = (event) => {
     const value = event.target.value;
     this.setState(() => ({ location: value }));
   }

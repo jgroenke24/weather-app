@@ -73,7 +73,6 @@ function ForecastGrid(props) {
   );
 }
 
-// Add proptypes
 ForecastGrid.propTypes = {
   city: PropTypes.string.isRequired,
   forecasts: PropTypes.array.isRequired,
@@ -81,15 +80,11 @@ ForecastGrid.propTypes = {
 };
 
 class Forecast extends React.Component {
-  constructor(props) {
-    super(props);
-    
-    this.state = {
-      isLoading: true,
-      error: null,
-      currentWeather: null,
-      data: null
-    };
+  state = {
+    isLoading: true,
+    error: null,
+    currentWeather: null,
+    data: null
   }
   componentDidMount() {
 
